@@ -2,6 +2,7 @@ package org.webApp.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,6 +19,7 @@ public class WorkAddress implements Serializable {
 	@Id
 	private int id;
 	
+    @Column(name="workAddress", length=255)
 	private String address;
 	
 	@JsonIgnore 			//TODO says that it is for infinite loop ??!?!?

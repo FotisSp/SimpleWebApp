@@ -7,13 +7,13 @@
 		<servlet-name>UserServlet</servlet-name>
 		<display-name>UserServlet</display-name>
 		<description></description>
-		<servlet-class>com.apache.servlets.UserServlet</servlet-class>
+		<servlet-class>org.webApp.servlets.UserServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>WelcomeServlet</servlet-name>
 		<display-name>WelcomeServlet</display-name>
 		<description></description>
-		<servlet-class>com.apache.servlets.WelcomeServlet</servlet-class>
+		<servlet-class>org.webApp.servlets.WelcomeServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>UserServlet</servlet-name>

@@ -29,10 +29,6 @@ public class UserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		System.err.println("\n\n\n\n\n\n\n\n\n\nksdjfgbijkshfkjisd \n\n\n\n\n\n\n\n\n\n\n");	//TODO DELETE LATER
-		System.exit(1);																			// TODO DELETE LATER
-		
 		request.getRequestDispatcher("user/index.jsp").forward(request, response);
 	}
 

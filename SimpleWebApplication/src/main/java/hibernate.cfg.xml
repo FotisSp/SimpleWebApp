@@ -9,8 +9,8 @@
 		<property name="hibernate.connection.password">admin</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.current_session_context_class">thread</property>
-		<mapping class="com.apache.entities.User" />
-		<mapping class="com.apache.entities.HomeAddress" />
-		<mapping class="com.apache.entities.WorkAddress" />
+		<mapping class="org.webApp.entities.User" />
+		<mapping class="org.webApp.entities.HomeAddress" />
+		<mapping class="org.webApp.entities.WorkAddress" />
 	</session-factory>
 </hibernate-configuration>
