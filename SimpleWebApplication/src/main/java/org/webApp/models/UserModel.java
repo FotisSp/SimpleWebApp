@@ -1,10 +1,9 @@
-package com.apache.models;
+package org.webApp.models;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
-import com.apache.entities.User;
+import org.webApp.entities.User;
 
 public class UserModel {
 

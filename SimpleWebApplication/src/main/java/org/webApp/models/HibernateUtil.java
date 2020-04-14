@@ -1,4 +1,4 @@
-package com.apache.models;
+package org.webApp.models;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
