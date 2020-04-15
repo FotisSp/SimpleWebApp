@@ -30,15 +30,15 @@
 		<table cellpadding="2" cellspacing="2">
 			<tr>
 				<td>Name</td>
-				<td><input type="text" name="name"></td>
+				<td><input type="text" name="name" required></td>
 			</tr>
 			<tr>
 				<td>Surname</td>
-				<td><input type="text" name="surname"></td>
+				<td><input type="text" name="surname" required></td>
 			</tr>
 			<tr>
 				<td>Gender</td>
-				<td><select id="gender" name="gender">
+				<td><select id="gender" name="gender" required>
 						<option value="male">Male</option>
 						<option value="female">Female</option>
 						<option value="other">Other</option>
