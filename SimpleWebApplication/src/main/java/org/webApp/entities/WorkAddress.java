@@ -22,7 +22,7 @@ public class WorkAddress implements Serializable {
     @Column(name="workAddress", length=255)
 	private String address;
 	
-	@JsonIgnore 			//TODO says that it is for infinite loop ??!?!?
+	@JsonIgnore 			//TODO says that it is for infinite loop
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;

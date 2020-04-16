@@ -23,15 +23,4 @@ public class UsersSet {
 	public User getUser(int id) { 
 		return users.get(id);
 	}
-	
-	// TODO not used
-	@Override
-	public String toString() { 
-		String builder = "\n";
-		for (User u : users.values()) {
-			builder += u.getName() + " " + u.getSurname() + "\n";
-		}
-		System.out.println(builder);
-		return builder;
-	}
 }

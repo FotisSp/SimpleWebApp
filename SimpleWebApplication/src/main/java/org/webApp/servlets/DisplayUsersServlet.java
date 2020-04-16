@@ -2,7 +2,6 @@ package org.webApp.servlets;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,11 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
+import org.webApp.entities.HomeAddress;
 import org.webApp.entities.User;
+import org.webApp.entities.WorkAddress;
 import org.webApp.models.HibernateUtil;
 import org.webApp.models.UsersSet;
 
 public class DisplayUsersServlet extends HttpServlet {
+	private static final int ID = 0;
+	private static final int NAME = 1;
+	private static final int SURNAME = 2;
+	private static final int GENDER = 1;
+	private static final int BIRTHDATE = 2;
+	private static final int HOMEADDRESS = 3;
+	private static final int WORKADDRESS = 4;
 	private static final long serialVersionUID = 1L;
 	private static UsersSet us;
 
@@ -44,35 +52,71 @@ public class DisplayUsersServlet extends HttpServlet {
 	
 	@SuppressWarnings("unchecked")
 	public static UsersSet retrieveUserSet() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Session session = null;
 		User u = null;
 		us = new UsersSet();
+
+		session = HibernateUtil.getSessionFactory().openSession();
 		
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			
-			List<Object[]> users = session.createNativeQuery("SELECT * FROM users").list();
-			for (Object[] obj : users) {
-				u = new User();
-				u.setId((Integer)obj[0]);
-				u.setName((String)obj[1]);
-				u.setSurname((String)obj[2]);
-				u.setGender((String)obj[3]);
-				System.out.println(obj[4]);
-				u.setBirthdate(dateFormat.format(obj[4]));
-				us.addUser(u);
-	         }
-		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
-		}
+		String query = "SELECT " + 
+				"    u.id, " + 
+				"    u.name, " + 
+				"    u.surname " + 
+				" FROM " + 
+				"    webapp.users as u;";			
 		
+		List<Object[]> users = session.createNativeQuery(query).list();
+		for (Object[] obj : users) {
+			u = new User();
+			u.setId((Integer)obj[ID]);
+			u.setName((String)obj[NAME]);
+			u.setSurname((String)obj[SURNAME]);
+			us.addUser(u);
+         }
 		return us;
 	}
 	
 	public User retrieveUser(int id) {
-		return us.getUser(id);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Session session = null;			// can i extract this object ? 
+		User u = us.getUser(id);
+		
+		session = HibernateUtil.getSessionFactory().openSession();
+		
+		String query = "SELECT DISTINCT" + 
+				"    u.id," + 
+				"    u.gender," + 
+				"    u.birthdate," + 
+				"    h.homeAddress," + 
+				"    w.workAddress" + 
+				" FROM" + 
+				"    webapp.users AS u" + 
+				"        INNER JOIN" + 
+				"    webapp.home_address AS h ON u.id = h.user_id" + 
+				"        INNER JOIN" + 
+				"    webapp.work_address AS w ON u.id = w.user_id" + 
+				" WHERE" + 
+				"   u.id = " + id + ";";
+		
+		Object[] user = (Object[]) session.createNativeQuery(query).getSingleResult();
+		u.setGender((String)user[GENDER]);
+		u.setBirthdate(dateFormat.format(user[BIRTHDATE]));
+		
+		HomeAddress homeAdd = new HomeAddress();
+		homeAdd.setId(id);
+		homeAdd.setAddress((String)user[HOMEADDRESS]);
+		homeAdd.setUser(u);
+		u.setHomeAddress(homeAdd);
+		
+		WorkAddress workAdd = new WorkAddress();
+		workAdd.setId(id);
+		workAdd.setAddress((String)user[WORKADDRESS]);
+		workAdd.setUser(u);
+		u.setWorkAddress(workAdd);
+		
+		us.addUser(u);
+		
+		return u;
 	}
 	
 }

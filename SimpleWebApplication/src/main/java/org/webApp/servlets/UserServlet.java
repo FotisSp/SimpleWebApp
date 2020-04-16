@@ -1,10 +1,6 @@
 package org.webApp.servlets;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +32,6 @@ public class UserServlet extends HttpServlet {
 		if (request.getParameter("back") != null) {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		} else {
-			SimpleDateFormat sdf = new SimpleDateFormat();
 			UserModel userModel = new UserModel();
 			User user = new User();
 
@@ -45,12 +40,6 @@ public class UserServlet extends HttpServlet {
 			user.setGender(request.getParameter("gender"));
 
 			String d = request.getParameter("birthdate");
-			try {
-				System.out.println("date : " + sdf.parse(d));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}				//TODO 
 			user.setBirthdate(d);
 			
 			String address = new String(request.getParameter("homeAddress"));
@@ -77,9 +66,7 @@ public class UserServlet extends HttpServlet {
 		address.setAddress(reqAddress);
 		address.setUser(user);
 		
-		Set<HomeAddress> addressList = new HashSet<HomeAddress>();
-		addressList.add(address);
-		user.setHomeAddresses(addressList);
+		user.setHomeAddress(address);
 	}
 	
 	private void addWorkAddress(String reqAddress, User user) {
@@ -87,9 +74,7 @@ public class UserServlet extends HttpServlet {
 		address.setAddress(reqAddress);
 		address.setUser(user);
 		
-		Set<WorkAddress> addressList = new HashSet<WorkAddress>();
-		addressList.add(address);
-		user.setWorkAddresses(addressList);
+		user.setWorkAddress(address);
 	}
 
 }

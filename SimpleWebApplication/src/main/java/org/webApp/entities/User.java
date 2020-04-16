@@ -4,24 +4,22 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat dateFormat = null;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,15 +27,14 @@ public class User implements Serializable {
 	private String name;
 	private String surname;
 	private String gender;
-	
-	@Type(type="date")
 	private Date birthdate;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<HomeAddress> homeAddresses;
+	// TODO FtechType Lazy to load on demand , Eager to preload among all others
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+	private HomeAddress homeAddresses;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<WorkAddress> workAddresses;
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+	private WorkAddress workAddresses;
 	
 	public int getId() {
 		return id;
@@ -71,12 +68,13 @@ public class User implements Serializable {
 		this.gender = gender;
 	}
 	
-	public String getBirthdate() {	// TODO 
-//		dateFormat = new SimpleDateFormat("dd MMM yyyy");
+	public String getBirthdate() { 
+		dateFormat= new SimpleDateFormat("dd MMM yyyy");
 		return dateFormat.format(birthdate);
 	}
 	
 	public void setBirthdate(String birthdate) {
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			this.birthdate = dateFormat.parse(birthdate);
 		} catch (ParseException e) {
@@ -85,19 +83,19 @@ public class User implements Serializable {
 		}
 	}
 	
-	public Set<HomeAddress> getHomeAddresses() {
-		return homeAddresses;
+	public String getHomeAddress() {
+		return homeAddresses.getAddress();
 	}
 	
-	public void setHomeAddresses(Set<HomeAddress> homeAddresses) {
-		this.homeAddresses = homeAddresses;
+	public void setHomeAddress(HomeAddress address) {
+		homeAddresses = address;
 	}
 	
-	public Set<WorkAddress> getWorkAddresses() {
-		return workAddresses;
+	public String getWorkAddress() {
+		return workAddresses.getAddress();
 	}
 	
-	public void setWorkAddresses(Set<WorkAddress> workAddresses) {
-		this.workAddresses = workAddresses;
+	public void setWorkAddress(WorkAddress address) {
+		workAddresses = address;
 	}
 }

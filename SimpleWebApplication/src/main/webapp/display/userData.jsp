@@ -36,11 +36,11 @@
 			</tr>
 			<tr>
 				<td>Home Address</td>
-				<td><input type="text" name="homeAddress"></td>
+				<td>${data.getHomeAddress()}</td>
 			</tr>
 			<tr>
 				<td>Work Address</td>
-				<td><input type="text" name="workAddress"></td>
+				<td>${data.getWorkAddress()}</td>
 			</tr>
 			<tr>
 				<td><input type="submit" class="button buttonCol"
