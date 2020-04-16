@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <html>
 <head>
@@ -39,9 +39,9 @@
 			<tr>
 				<td>Gender</td>
 				<td><select id="gender" name="gender" required>
-						<option value="male">Male</option>
-						<option value="female">Female</option>
-						<option value="other">Other</option>
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+						<option value="Other">Other</option>
 				</select></td>
 			</tr>
 			<tr>

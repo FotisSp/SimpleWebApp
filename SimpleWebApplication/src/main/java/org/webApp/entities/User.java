@@ -1,6 +1,8 @@
 package org.webApp.entities;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
@@ -12,11 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +29,8 @@ public class User implements Serializable {
 	private String name;
 	private String surname;
 	private String gender;
+	
+	@Type(type="date")
 	private Date birthdate;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -64,12 +71,18 @@ public class User implements Serializable {
 		this.gender = gender;
 	}
 	
-	public Date getBirthdate() {
-		return birthdate;
+	public String getBirthdate() {	// TODO 
+//		dateFormat = new SimpleDateFormat("dd MMM yyyy");
+		return dateFormat.format(birthdate);
 	}
 	
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
+	public void setBirthdate(String birthdate) {
+		try {
+			this.birthdate = dateFormat.parse(birthdate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public Set<HomeAddress> getHomeAddresses() {

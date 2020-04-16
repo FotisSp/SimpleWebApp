@@ -20,10 +20,11 @@ public class UsersSet {
 		users.put(u.getId(), u);
 	}
 	
-	public User getUser(User u) { 
-		return users.get(u.getId());
+	public User getUser(int id) { 
+		return users.get(id);
 	}
 	
+	// TODO not used
 	@Override
 	public String toString() { 
 		String builder = "\n";

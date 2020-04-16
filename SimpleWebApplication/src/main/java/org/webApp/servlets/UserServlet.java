@@ -1,7 +1,6 @@
 package org.webApp.servlets;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
@@ -37,7 +36,7 @@ public class UserServlet extends HttpServlet {
 		if (request.getParameter("back") != null) {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		} else {
-			DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat();
 			UserModel userModel = new UserModel();
 			User user = new User();
 
@@ -45,14 +44,14 @@ public class UserServlet extends HttpServlet {
 			user.setSurname(request.getParameter("surname"));
 			user.setGender(request.getParameter("gender"));
 
+			String d = request.getParameter("birthdate");
 			try {
-				String d = request.getParameter("birthdate");
-				user.setBirthdate(dateFormat.parse(d));
+				System.out.println("date : " + sdf.parse(d));
 			} catch (ParseException e) {
-				System.out.println("ERROR AT UserServlet");		//TODO refine later
+				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.exit(1);
-			}
+			}				//TODO 
+			user.setBirthdate(d);
 			
 			String address = new String(request.getParameter("homeAddress"));
 			if (address != null) {
