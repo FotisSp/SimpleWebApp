@@ -63,7 +63,8 @@ public class DisplayUsersServlet extends HttpServlet {
 				"    u.name, " + 
 				"    u.surname " + 
 				" FROM " + 
-				"    webapp.users as u;";			
+				"    webapp.users as u " + 
+				" ORDER BY u.name ASC;";
 		
 		List<Object[]> users = session.createNativeQuery(query).list();
 		for (Object[] obj : users) {
@@ -78,7 +79,7 @@ public class DisplayUsersServlet extends HttpServlet {
 	
 	public User retrieveUser(int id) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Session session = null;			// can i extract this object ? 
+		Session session = null;
 		User u = us.getUser(id);
 		
 		session = HibernateUtil.getSessionFactory().openSession();

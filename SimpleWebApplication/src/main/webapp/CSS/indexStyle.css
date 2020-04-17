@@ -1,45 +1,32 @@
-.button {
-	background-color: #4CAF50;
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
+html {
+	height: 100%;
+	margin: 0;
 }
 
-.buttonCol {
-	background-color: #008CBA;
+body {
+	background-image: url('../Images/background.png');
+	background-repeat: no-repeat; 
+	background-attachment : fixed;
+	background-size: cover;
+	background-position: center;
+	position: relative;
 }
 
-#users {
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	border-collapse: collapse;
-	width: 50%;
+.header {
+  padding: 80px;
+  text-align: center;
+  color: black;
 }
 
-#users td, #users th {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: center;
+.header h1 {
+  font-size: 40px;
 }
 
-#users tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
-
-#users tbody tr:hover {
-	background-color: #ddd;
-	cursor: pointer;
-}
-
-#users th {
-	padding-top: 12px;
-	padding-bottom: 12px;
-	text-align: center;
-	background-color: #4CAF50;
-	color: white;
+.clock {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #493ec8;;
+    font-size: 30px;
+    letter-spacing: 3px;
 }

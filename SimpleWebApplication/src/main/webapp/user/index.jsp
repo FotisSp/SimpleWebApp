@@ -2,66 +2,62 @@
 	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <html>
 <head>
-<style>
-.button {
-	background-color: #4CAF50;
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-}
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/indexStyle.css">
+ <link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/buttonStyle.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/userIndex.css">
 
-.buttonCol {background-color: #008CBA;}
-
-</style>
-
-<title>Simple Web Application</title>
+<title>Register</title>
 </head>
 <body>
 
-	<h3>Register User</h3>
-	${msg }
+	<div class="header">
+		<h1>Register User</h1>
+		<p>Complete the required data to register.</p>
+	</div>
+	<div class="serverMessage">
+		<p>${msg}</p>
+	</div>
+
 	<form method="post" action="${pageContext.request.contextPath }/user">
-		<table cellpadding="2" cellspacing="2">
-			<tr>
-				<td>Name</td>
-				<td><input type="text" name="name" required></td>
-			</tr>
-			<tr>
-				<td>Surname</td>
-				<td><input type="text" name="surname" required></td>
-			</tr>
-			<tr>
-				<td>Gender</td>
-				<td><select id="gender" name="gender" required>
-						<option value="Male">Male</option>
-						<option value="Female">Female</option>
-						<option value="Other">Other</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td>Birthdate</td>
-				<td><input type="date" name="birthdate" required></td>
-			</tr>
-			<tr>
-				<td>Home Address</td>
-				<td><input type="text" name="homeAddress"></td>
-			</tr>
-			<tr>
-				<td>Work Address</td>
-				<td><input type="text" name="workAddress"></td>
-			</tr>
-			<tr>
-				<td><input type="submit" class="button buttonCol" name="register" value="Register"></td>
-				<td><input type="submit" class="button buttonCol" name="back" value="Back"
-					formnovalidate></td>
-			</tr>
-		</table>
+		<div class="registerData">
+
+			<label for="name"><b>Name</b></label>
+		    <input type="text" placeholder="Enter Name *" name="name" required>
+		
+		    <label for="surname"><b>Lastname</b></label>
+		    <input type="text" placeholder="Enter Lastname *" name="surname" required>
+		
+		    <label for="gender"><b>Gender</b></label>
+		    <select id="gender" name="gender" required>
+			    <option value="none" selected disabled hidden="">
+			    	Select Gender *
+				</option>
+				<option value="Male">Male</option>
+				<option value="Female">Female</option>
+				<option value="Other">Other</option>
+			</select>
+			
+			<label for="birthdate"><b>Birthdate</b></label>
+		    <input type="date" placeholder="Enter Birthdate *" name="birthdate" required>
+		    
+		    <label for="homeAddress"><b>Home Address</b></label>
+		    <input type="text" placeholder="Enter Home Address" name="homeAddress">
+		    
+		    <label for="workAddress"><b>Work Address</b></label>
+		    <input type="text" placeholder="Enter Work Address" name="workAddress">
+		    
+		    <p>Fields with asterisk (*) are required.</p>
+
+			<div class="buttonContainer">
+				<input type="submit" class="button buttonCol" name="back"
+					value="Back" formnovalidate>
+				<input type="submit" class="button buttonCol" name="register"
+					value="Register">	
+			</div>
+		</div>
 	</form>
 
 </body>

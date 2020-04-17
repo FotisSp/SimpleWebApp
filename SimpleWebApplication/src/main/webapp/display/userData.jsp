@@ -9,44 +9,49 @@
 
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/CSS/userDataStyle.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/buttonStyle.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/indexStyle.css">
 	
 <title>User Data</title>
 </head>
 <body>
-	<h2>User info</h2>
+	<div class="header">
+		<h1>User info</h1>
+	</div>
 
 	<form method="post"
 		action="${pageContext.request.contextPath}/displayUsersServlet">
-		<table>
-			<tr>
-				<td>Name</td>
-				<td>${data.getName()}</td>
-			</tr>
-			<tr>
-				<td>Surname</td>
-				<td>${data.getSurname()}</td>
-			</tr>
-			<tr>
-				<td>Gender</td>
-				<td>${data.getGender()}</td>
-			</tr>
-			<tr>
-				<td>Birthdate</td>
-				<td>${data.getBirthdate()}</td>
-			</tr>
-			<tr>
-				<td>Home Address</td>
-				<td>${data.getHomeAddress()}</td>
-			</tr>
-			<tr>
-				<td>Work Address</td>
-				<td>${data.getWorkAddress()}</td>
-			</tr>
-			<tr>
-				<td><input type="submit" class="button buttonCol"
-					name="backFromUser" value="Back"></td>
-			</tr>
-		</table>
+		<div align="center">
+			<table id="user">
+				<tr>
+					<td>Name</td>
+					<td>${data.getName()}</td>
+				</tr>
+				<tr>
+					<td>Surname</td>
+					<td>${data.getSurname()}</td>
+				</tr>
+				<tr>
+					<td>Gender</td>
+					<td>${data.getGender()}</td>
+				</tr>
+				<tr>
+					<td>Birthdate</td>
+					<td>${data.getBirthdate()}</td>
+				</tr>
+				<tr>
+					<td>Home Address</td>
+					<td>${data.getHomeAddress()}</td>
+				</tr>
+				<tr>
+					<td>Work Address</td>
+					<td>${data.getWorkAddress()}</td>
+				</tr>
+			</table>
+			<input type="submit" class="button buttonCol" name="backFromUser" value="Back">
+		</div>
 	</form>
 
 </body>
