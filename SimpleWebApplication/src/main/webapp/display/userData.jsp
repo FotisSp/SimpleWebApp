@@ -51,8 +51,9 @@
 				</tr>
 			</table>
 			<input type="submit" class="button buttonCol" name="backFromUser" value="Back">
+			<input type="submit" class="button delButton" name="deleteUser" value="Delete">
+			<input type="hidden" name="userId" value="${data.getId()}">
 		</div>
 	</form>
-
 </body>
 </html>

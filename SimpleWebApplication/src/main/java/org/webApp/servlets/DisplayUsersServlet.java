@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 import org.webApp.entities.HomeAddress;
 import org.webApp.entities.User;
 import org.webApp.entities.WorkAddress;
@@ -47,6 +49,11 @@ public class DisplayUsersServlet extends HttpServlet {
 		} else if (request.getParameter("display") != null) {
 			request.setAttribute("data", retrieveUserSet().getMap());
 			request.getRequestDispatcher("/display/index.jsp").forward(request, response);
+		} else if (request.getParameter("deleteUser") != null) {
+			int id = Integer.parseInt(request.getParameter("userId"));
+			deleteUser(id);
+			request.setAttribute("data", retrieveUserSet().getMap());
+			request.getRequestDispatcher("/display/index.jsp").forward(request, response);
 		}
 	}
 	
@@ -79,10 +86,8 @@ public class DisplayUsersServlet extends HttpServlet {
 	
 	public User retrieveUser(int id) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Session session = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		User u = us.getUser(id);
-		
-		session = HibernateUtil.getSessionFactory().openSession();
 		
 		String query = "SELECT DISTINCT" + 
 				"    u.id," + 
@@ -118,6 +123,20 @@ public class DisplayUsersServlet extends HttpServlet {
 		us.addUser(u);
 		
 		return u;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void deleteUser(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction txn = session.beginTransaction();
+		
+		String query = "DELETE FROM `webapp`.`users` " + 
+				"WHERE " + 
+				"    (`id` = '" + id + "');";
+		
+		NativeQuery q = session.createNativeQuery(query);
+		q.executeUpdate();
+		txn.commit();
 	}
 	
 }
