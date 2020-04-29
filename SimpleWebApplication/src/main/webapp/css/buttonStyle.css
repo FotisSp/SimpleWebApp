@@ -54,3 +54,9 @@
 #topBtn:hover {
 	background-color: #555;
 }
+
+.github {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}

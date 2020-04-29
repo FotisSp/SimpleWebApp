@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 
 <!DOCTYPE html>
 <html>
@@ -8,14 +8,14 @@
 <meta charset="ISO-8859-1">
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/userDataStyle.css">
+	href="${pageContext.request.contextPath}/css/userDataStyle.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/buttonStyle.css">
+	href="${pageContext.request.contextPath}/css/buttonStyle.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/indexStyle.css">
-<link rel="stylesheet" type="text/css" 
-	href="${pageContext.request.contextPath}/CSS/custom-confirm.css">
-	
+	href="${pageContext.request.contextPath}/css/indexStyle.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/custom-confirm.css">
+
 <title>User Data</title>
 </head>
 <body>
@@ -53,27 +53,26 @@
 				</tr>
 			</table>
 			<input type="submit" class="button buttonCol" name="backFromUser" value="Back">
-		    <input type="submit" class="button delButton" name="deleteUser" value="Delete" id="deleteUser"/>
+	    <input type="submit" class="button delButton" name="deleteUser" value="Delete" id="deleteUser"/>
 			<input type="hidden" name="userId" value="${data.getId()}">
+	    <input type="submit" class="button buttonCol" name="editUser" value="Edit" id="editUser"/>
 		</div>
 	</form>
 </body>
 
 <script src="${pageContext.request.contextPath}/scripts/custom-confirm.js"></script>
 <script>
-CustomConfirm({
-	targets: '#deleteUser',
-	title: 'Delete User',
-	body: 'Are you sure you want to delete this user?',
-	btn_yes: 'Yes',
-  	btn_no: 'No'
-}, function (confirmed, element) {
-	  if (confirmed) {
-		  document.userDataForm.submit();
-	  } else {
-		console.log('false');  
-	  }
-	});
+	CustomConfirm({
+		targets: '#deleteUser',
+		title: 'Delete User',
+		body: 'Are you sure you want to delete this user?',
+		btn_yes: 'Yes',
+	  	btn_no: 'No'
+	}, function (confirmed, element) {
+		  if (confirmed) {
+			  document.userDataForm.submit();
+		  }
+		});
 </script>
 
 </html>

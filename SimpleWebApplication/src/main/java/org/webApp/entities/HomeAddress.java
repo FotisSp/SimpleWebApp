@@ -11,6 +11,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author Fotis Spanopoulos
+ *
+ */
 @Entity
 @Table(name = "home_address")
 public class HomeAddress implements Serializable {
@@ -22,7 +26,7 @@ public class HomeAddress implements Serializable {
     @Column(name="homeAddress", length=255)
 	private String address;
 
-	@JsonIgnore 		//TODO says that it is for infinite loop ??!?!?
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;

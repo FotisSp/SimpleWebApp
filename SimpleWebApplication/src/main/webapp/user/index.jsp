@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/indexStyle.css">
+	href="${pageContext.request.contextPath}/css/indexStyle.css">
  <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/buttonStyle.css">
+	href="${pageContext.request.contextPath}/css/buttonStyle.css">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/userIndex.css">
-	
+	href="${pageContext.request.contextPath}/css/userIndex.css">
+<link href="${pageContext.request.contextPath}/css/datepicker.min.css" rel="stylesheet" />
+
 <title>Register</title>
 </head>
 <body>
@@ -26,10 +27,10 @@
 
 			<label for="name"><b>Name</b></label>
 		    <input type="text" placeholder="Enter Name *" name="name" required>
-		
+
 		    <label for="surname"><b>Lastname</b></label>
 		    <input type="text" placeholder="Enter Lastname *" name="surname" required>
-		
+
 		    <label for="gender"><b>Gender</b></label>
 		    <select id="gender" name="gender" required>
 			    <option value="none" selected disabled hidden="">
@@ -39,27 +40,28 @@
 				<option value="Female">Female</option>
 				<option value="Other">Other</option>
 			</select>
-			
+
 			<label for="birthdate"><b>Birthdate</b></label>
-		    <input type="date" placeholder="Enter Birthdate *" name="birthdate" id="datefield" min="1900-01-01" max="2020-04-17" required>
-		    
-		    <label for="homeAddress"><b>Home Address</b></label>
-		    <input type="text" placeholder="Enter Home Address" name="homeAddress">
-		    
-		    <label for="workAddress"><b>Work Address</b></label>
-		    <input type="text" placeholder="Enter Work Address" name="workAddress">
-		    
-		    <p>Fields with asterisk (*) are required.</p>
+			<div id="inline" data-date="01/05/2020"></div>
+			<input type="text" placeholder="Enter Birthdate *" name="birthdate" id="datefield" required>
+
+	    <label for="homeAddress"><b>Home Address</b></label>
+	    <input type="text" placeholder="Enter Home Address" name="homeAddress">
+
+	    <label for="workAddress"><b>Work Address</b></label>
+	    <input type="text" placeholder="Enter Work Address" name="workAddress">
+
+	    <p>Fields with asterisk (*) are required.</p>
 
 			<div class="buttonContainer">
 				<input type="submit" class="button buttonCol" name="back"
 					value="Back" formnovalidate>
 				<input type="submit" class="button buttonCol" name="register"
-					value="Register">	
+					value="Register">
 			</div>
 		</div>
 	</form>
 
-<script src="../scripts/maxDate.js"></script>
-</body>
+	<script src="${pageContext.request.contextPath}/scripts/datepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/scripts/maxDate.js"></script></body>
 </html>

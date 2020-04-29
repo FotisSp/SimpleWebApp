@@ -5,6 +5,10 @@ import java.util.Map;
 
 import org.webApp.entities.User;
 
+/**
+ * @author Fotis Spanopoulos
+ *
+ */
 public class UsersSet {
 	private Map<Integer,User> users;
 

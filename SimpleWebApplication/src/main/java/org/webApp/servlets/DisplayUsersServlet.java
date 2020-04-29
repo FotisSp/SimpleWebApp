@@ -28,15 +28,14 @@ public class DisplayUsersServlet extends HttpServlet {
 	private static final int HOMEADDRESS = 3;
 	private static final int WORKADDRESS = 4;
 	private static final long serialVersionUID = 1L;
+	private static UserModel um;
 	private static UsersSet us;
 
 	public DisplayUsersServlet() {
-        super();
+        um = new UserModel();
+        us = new UsersSet();
     }
 	
-	/**
-	 *
-	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -44,19 +43,24 @@ public class DisplayUsersServlet extends HttpServlet {
 		request.getRequestDispatcher("/display/userData.jsp").forward(request, response);
 	}
 
-	/**
-	 *
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("backFromList") != null) {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
-		} else if (request.getParameter("backFromUser") != null) {
+		} 
+		else if (request.getParameter("backFromUser") != null) {
 			request.setAttribute("data", us.getMap());
 			request.getRequestDispatcher("/display/index.jsp").forward(request, response);
-		} else if (request.getParameter("display") != null) {
+		} 
+		else if (request.getParameter("display") != null) {
 			request.setAttribute("data", retrieveUserSet().getMap());
 			request.getRequestDispatcher("/display/index.jsp").forward(request, response);
-		} else {
+		} 
+		else if (request.getParameter("editUser") != null) {
+			int id = Integer.parseInt(request.getParameter("userId"));
+			request.setAttribute("data", retrieveUser(id));
+			request.getRequestDispatcher("/user/edit.jsp").forward(request, response);
+		} 
+		else {
 			int id = Integer.parseInt(request.getParameter("userId"));
 			deleteUser(id);
 			request.setAttribute("data", retrieveUserSet().getMap());
@@ -65,12 +69,13 @@ public class DisplayUsersServlet extends HttpServlet {
 	}
 	
 	/**
-	 * @return
+	 * Retrieves a User set which contains all the registered users.
+	 * 
+	 * @return		UsersSet with all the registered users.
 	 */
-	public static UsersSet retrieveUserSet() {
+	private static UsersSet retrieveUserSet() {
 		User u = null;
 		us = new UsersSet();
-		UserModel um = new UserModel();
 
 		String query = "SELECT " + 
 				"    u.id, " + 
@@ -92,12 +97,13 @@ public class DisplayUsersServlet extends HttpServlet {
 	}
 	
 	/**
-	 * @param id
-	 * @return
+	 * Constructs the SQL query to retrieve the specified user.
+	 * 
+	 * @param 	id	The selected user's id.
+	 * @return		User Object with the retrieved info.
 	 */
-	public User retrieveUser(int id) {
+	private User retrieveUser(int id) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		UserModel um = new UserModel();
 		User u = us.getUser(id);
 		
 		String query = "SELECT DISTINCT" + 
@@ -141,16 +147,15 @@ public class DisplayUsersServlet extends HttpServlet {
 	}
 	
 	/**
-	 * @param id
+	 * Constructs the SQL query to delete the selected user.
+	 * 
+	 * @param 	id	The selected user's id.
 	 */
-	public void deleteUser(int id) {
-		UserModel um = new UserModel();
-
+	private void deleteUser(int id) {
 		String query = "DELETE FROM `webapp`.`users` " + 
 				"WHERE " + 
 				"    (`id` = '" + id + "');";
 		
 		um.deleteUser(query);
 	}
-	
 }
