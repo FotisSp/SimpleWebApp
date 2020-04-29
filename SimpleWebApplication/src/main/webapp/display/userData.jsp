@@ -13,6 +13,8 @@
 	href="${pageContext.request.contextPath}/CSS/buttonStyle.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/CSS/indexStyle.css">
+<link rel="stylesheet" type="text/css" 
+	href="${pageContext.request.contextPath}/CSS/custom-confirm.css">
 	
 <title>User Data</title>
 </head>
@@ -21,7 +23,7 @@
 		<h1>User info</h1>
 	</div>
 
-	<form method="post"
+	<form method="post" id="userData", name="userDataForm"
 		action="${pageContext.request.contextPath}/displayUsersServlet">
 		<div align="center">
 			<table id="user">
@@ -51,9 +53,27 @@
 				</tr>
 			</table>
 			<input type="submit" class="button buttonCol" name="backFromUser" value="Back">
-			<input type="submit" class="button delButton" name="deleteUser" value="Delete">
+		    <input type="submit" class="button delButton" name="deleteUser" value="Delete" id="deleteUser"/>
 			<input type="hidden" name="userId" value="${data.getId()}">
 		</div>
 	</form>
 </body>
+
+<script src="${pageContext.request.contextPath}/scripts/custom-confirm.js"></script>
+<script>
+CustomConfirm({
+	targets: '#deleteUser',
+	title: 'Delete User',
+	body: 'Are you sure you want to delete this user?',
+	btn_yes: 'Yes',
+  	btn_no: 'No'
+}, function (confirmed, element) {
+	  if (confirmed) {
+		  document.userDataForm.submit();
+	  } else {
+		console.log('false');  
+	  }
+	});
+</script>
+
 </html>

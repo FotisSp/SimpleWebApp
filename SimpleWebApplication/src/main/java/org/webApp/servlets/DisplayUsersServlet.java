@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.NativeQuery;
 import org.webApp.entities.HomeAddress;
 import org.webApp.entities.User;
 import org.webApp.entities.WorkAddress;
-import org.webApp.models.HibernateUtil;
+import org.webApp.models.UserModel;
 import org.webApp.models.UsersSet;
 
+/**
+ * @author Fotis Spanopoulos
+ *
+ */
 public class DisplayUsersServlet extends HttpServlet {
 	private static final int ID = 0;
 	private static final int NAME = 1;
@@ -33,6 +34,9 @@ public class DisplayUsersServlet extends HttpServlet {
         super();
     }
 	
+	/**
+	 *
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -40,6 +44,9 @@ public class DisplayUsersServlet extends HttpServlet {
 		request.getRequestDispatcher("/display/userData.jsp").forward(request, response);
 	}
 
+	/**
+	 *
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("backFromList") != null) {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
@@ -49,7 +56,7 @@ public class DisplayUsersServlet extends HttpServlet {
 		} else if (request.getParameter("display") != null) {
 			request.setAttribute("data", retrieveUserSet().getMap());
 			request.getRequestDispatcher("/display/index.jsp").forward(request, response);
-		} else if (request.getParameter("deleteUser") != null) {
+		} else {
 			int id = Integer.parseInt(request.getParameter("userId"));
 			deleteUser(id);
 			request.setAttribute("data", retrieveUserSet().getMap());
@@ -57,14 +64,14 @@ public class DisplayUsersServlet extends HttpServlet {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	/**
+	 * @return
+	 */
 	public static UsersSet retrieveUserSet() {
-		Session session = null;
 		User u = null;
 		us = new UsersSet();
+		UserModel um = new UserModel();
 
-		session = HibernateUtil.getSessionFactory().openSession();
-		
 		String query = "SELECT " + 
 				"    u.id, " + 
 				"    u.name, " + 
@@ -72,8 +79,8 @@ public class DisplayUsersServlet extends HttpServlet {
 				" FROM " + 
 				"    webapp.users as u " + 
 				" ORDER BY u.name ASC;";
-		
-		List<Object[]> users = session.createNativeQuery(query).list();
+
+		List<Object[]> users = um.getUsers(query);
 		for (Object[] obj : users) {
 			u = new User();
 			u.setId((Integer)obj[ID]);
@@ -84,9 +91,13 @@ public class DisplayUsersServlet extends HttpServlet {
 		return us;
 	}
 	
+	/**
+	 * @param id
+	 * @return
+	 */
 	public User retrieveUser(int id) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		UserModel um = new UserModel();
 		User u = us.getUser(id);
 		
 		String query = "SELECT DISTINCT" + 
@@ -104,7 +115,11 @@ public class DisplayUsersServlet extends HttpServlet {
 				" WHERE" + 
 				"   u.id = " + id + ";";
 		
-		Object[] user = (Object[]) session.createNativeQuery(query).getSingleResult();
+		Object[] user = um.getSingleUser(query);
+		if(user == null) {
+			return null;
+		}
+		
 		u.setGender((String)user[GENDER]);
 		u.setBirthdate(dateFormat.format(user[BIRTHDATE]));
 		
@@ -125,18 +140,17 @@ public class DisplayUsersServlet extends HttpServlet {
 		return u;
 	}
 	
-	@SuppressWarnings("rawtypes")
+	/**
+	 * @param id
+	 */
 	public void deleteUser(int id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction txn = session.beginTransaction();
-		
+		UserModel um = new UserModel();
+
 		String query = "DELETE FROM `webapp`.`users` " + 
 				"WHERE " + 
 				"    (`id` = '" + id + "');";
 		
-		NativeQuery q = session.createNativeQuery(query);
-		q.executeUpdate();
-		txn.commit();
+		um.deleteUser(query);
 	}
 	
 }

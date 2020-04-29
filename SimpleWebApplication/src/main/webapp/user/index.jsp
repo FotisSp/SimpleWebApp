@@ -9,22 +9,6 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/CSS/userIndex.css">
 	
-<script>
-	var today = new Date();
-	var dd = today.getDate();
-	var mm = today.getMonth() + 1;
-	var yyyy = today.getFullYear();
-	if (dd < 10) {
-		dd = '0' + dd
-	}
-	if (mm < 10) {
-		mm = '0' + mm
-	}
-	
-	today = yyyy + '-' + mm + '-' + dd;
-	document.getElementById("datefield").setAttribute("max", today);
-</script>
-
 <title>Register</title>
 </head>
 <body>
@@ -57,7 +41,7 @@
 			</select>
 			
 			<label for="birthdate"><b>Birthdate</b></label>
-		    <input type="date" placeholder="Enter Birthdate *" name="birthdate" min="1900-01-01" max="2020-04-17" required>
+		    <input type="date" placeholder="Enter Birthdate *" name="birthdate" id="datefield" min="1900-01-01" max="2020-04-17" required>
 		    
 		    <label for="homeAddress"><b>Home Address</b></label>
 		    <input type="text" placeholder="Enter Home Address" name="homeAddress">
@@ -76,5 +60,6 @@
 		</div>
 	</form>
 
+<script src="../scripts/maxDate.js"></script>
 </body>
 </html>
